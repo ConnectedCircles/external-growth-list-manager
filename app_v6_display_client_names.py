@@ -4,16 +4,26 @@ import pandas as pd
 from google.oauth2 import service_account
 from getfilelistpy import getfilelist
 
+### Google Drive API authentication (LOCAL) ########################################################################
+# Authenticate Google Drive API
 # Authenticate Google Sheets API
-creds = service_account.Credentials.from_service_account_file(
-    'C:/Users/HP/Downloads/credentials.json',
+#creds = service_account.Credentials.from_service_account_file(
+#    'C:/Users/HP/Downloads/credentials.json',
+#    scopes=['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+#)
+#############################################################################################################
+
+### Google Drive API authentication (STREAMLIT SHARE)########################################################################
+# Authenticate Google Drive API
+# Authenticate Google Sheets API
+raw_creds = st.secrets["raw_creds"]
+json_creds = json.loads(raw_creds)
+
+creds = service_account.Credentials.from_service_account_info(
+    json_creds,
     scopes=['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 )
-
-# Authenticate Google Drive API
-SCOPES = ['https://www.googleapis.com/auth/drive']
-SERVICE_ACCOUNT_FILE = 'C:/Users/HP/Downloads/credentials.json'
-drive_creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+#############################################################################################################
 
 # Authorize Google Sheets API
 client = gspread.authorize(creds)
