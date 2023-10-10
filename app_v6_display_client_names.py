@@ -101,13 +101,14 @@ def main():
     st.title("Growth List Manager")
     st.write("""Welcome to the Connected Circles Growth List Manager. Log in to view your growth lists""")
     
-    st.title('Login')
+    st.header('Login')
     name = st.text_input('Name')
     password = st.text_input('Password', type='password')
     if st.button('Login'):
         folder_url = login(name, password)
         if folder_url:
-            st.success('Login Successful!')
+            st.success('Login successful!')
+            st.header("Available lists:")
             # Display clickable URLs to files in the folder
             files = get_files_in_nested_folders(folder_url)
             if not files.empty:
