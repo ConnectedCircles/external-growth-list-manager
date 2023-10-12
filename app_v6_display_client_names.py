@@ -71,7 +71,7 @@ def get_files_in_nested_folders(folder_url):
     # Preserve only the second foldertree value (the name of the client folder id)
     for record in file_records:
         folder_tree = record['folderTree']
-        if len(folder_tree) > 1:
+        if len(folder_tree) > 0:
             record['folderTree'] = folder_tree[-1]
         else:
             record['folderTree'] = None
@@ -88,6 +88,9 @@ def get_files_in_nested_folders(folder_url):
 
     # merge them to the records
     files = files.merge(folder_tree_names, on='folderTree', how='left')
+
+    # drop files wich are not nested in a folder with the name of a client
+    files = files.dropna(subset = ['names'])
     
     return files
 
