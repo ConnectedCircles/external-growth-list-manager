@@ -88,9 +88,6 @@ def get_files_in_nested_folders(folder_url):
 
     # merge them to the records
     files = files.merge(folder_tree_names, on='folderTree', how='left')
-
-    # drop files wich are not nested in a folder with the name of a client
-    files = files.dropna(subset = ['names'])
     
     return files
 
